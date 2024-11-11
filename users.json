@@ -1,0 +1,27 @@
+{
+    "john_doe": {
+        "name": "John Doe",
+        "attempts": 1,
+        "last_score": 80
+    },
+    "jane_smith": {
+        "name": "Jane Smith",
+        "attempts": 2,
+        "last_score": 90
+    },
+    "alice_johnson": {
+        "name": "Alice Johnson",
+        "attempts": 0,
+        "last_score": null
+    },
+    "bob_brown": {
+        "name": "Bob Brown",
+        "attempts": 1,
+        "last_score": 70
+    },
+    "aaa": {
+        "name": "aaa",
+        "attempts": 1,
+        "last_score": 70.0
+    }
+}
