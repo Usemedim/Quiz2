@@ -11,7 +11,6 @@ def get_user_input(prompt, valid_options=None):
 
 def show_question(section_id, question_id, question_text, options=None):
     print(f"Question {question_id}: {question_text}")
-    
     if options:
         print("Options:")
         for idx, option in enumerate(options, 1):
@@ -33,25 +32,20 @@ def show_question(section_id, question_id, question_text, options=None):
 def evaluate_answers(user_answers, correct_answers):
     score = 0
     total_questions = len(correct_answers)
-    
     for question_id, correct_answer in correct_answers.items():
         user_answer = user_answers.get(question_id)
-        
         if user_answer is None:
             print(f"No valid answer provided for question {question_id}.")
             continue
         if user_answer == correct_answer:
             score += 1
-    
     return (score / total_questions) * 100
 
 def start_exam(username, exam_duration=3600):
     user_data = get_user_data(username)
-    
     if user_data['attempts'] >= 2:
         print(f"{username}, you have no more attempts!")
         return
-    
     print(f"Starting your exam, {username}!")
     user_answers = {}
     total_score = 0
@@ -62,27 +56,21 @@ def start_exam(username, exam_duration=3600):
     for section in sections:
         print(f"\nSection {section} - Starting...")
         section_questions = all_questions.get(section, [])
-        correct_answers = {q["question_id"]: q["correct_answer"] for q in section_questions}
-        
+        correct_answers = {q["question_id"]: q["correct_answer"] for q in section_questions} 
         section_user_answers = {}
-        
         for question_data in section_questions:
             question_id = question_data["question_id"]
             question_text = question_data["question_text"]
             valid_options = question_data.get("options", None)
             user_answer = show_question(section, question_id, question_text, valid_options)
             section_user_answers[question_id] = user_answer
-        
         section_score = evaluate_answers(section_user_answers, correct_answers)
         print(f"Section {section} success rate: {section_score:.2f}%")
         total_score += section_score
-
     overall_score = total_score / len(sections)
     print(f"\nYour overall success rate: {overall_score:.2f}%")
-
     user_data['attempts'] += 1
     update_user_data(username, user_data['attempts'], overall_score)
-
     if overall_score >= 75:
         print(f"Congratulations, {username}! You passed the exam.")
     else:
